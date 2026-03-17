@@ -139,10 +139,7 @@ rule predict_xgb:
 
 rule merge_predictions:
     input:
-        lambda wildcards: expand(
-            "data/predictions/pred_{chunk}.csv",
-            chunk=get_chunks()
-        )
+        chunk_list="data/chunks/chunk_list.txt"
     output:
         all="results/AGAPE_pubchem_all_predictions.csv",
         active="results/AGAPE_pubchem_highconfidence_active.csv",
