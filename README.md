@@ -30,32 +30,59 @@ The pipeline is designed for **large datasets (millions of molecules)** and supp
 
 # Workflow
 PubChem CID–SMILES
+
 │
+
 ▼
+
 Download dataset
+
 │
+
 ▼
+
 Split dataset into chunks
+
 │
+
 ▼
+
 SMILES cleaning and validation
+
 │
+
 ▼
+
 Mordred descriptor computation
+
 │
+
 ▼
+
 Feature alignment with trained model
+
 │
+
 ▼
+
 Imputation + scaling
+
 │
+
 ▼
+
 XGBoost prediction
+
 │
+
 ▼
+
 Confidence filtering
+
 │
+
 ▼
+
 Merge results
 
 
