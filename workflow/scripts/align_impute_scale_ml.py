@@ -60,6 +60,7 @@ meta_cols = ["CID", "SMILES", "canonical_smiles"]
 
 final_df = pd.concat([df[meta_cols], X_scaled], axis=1)
 
+output_file.parent.mkdir(parents=True, exist_ok=True)
 final_df.to_csv(output_file, index=False)
 
 print("Rows:", len(final_df))

@@ -71,6 +71,9 @@ highconf = highconf[[
     "model_confidence"
 ]]
 
+full_output.parent.mkdir(parents=True, exist_ok=True)
+high_output.parent.mkdir(parents=True, exist_ok=True)
+
 highconf.to_csv(high_output, index=False)
 
 print("Total molecules:", len(result))

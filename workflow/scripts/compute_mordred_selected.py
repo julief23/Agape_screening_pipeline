@@ -74,6 +74,8 @@ desc_df = calc.pandas(mols)
 # Keep only the exact feature order expected by the model
 desc_df = desc_df.reindex(columns=feature_list)
 
+output_file.parent.mkdir(parents=True, exist_ok=True)
+
 final_df = pd.concat([meta_df, desc_df], axis=1)
 final_df.to_csv(output_file, index=False)
 

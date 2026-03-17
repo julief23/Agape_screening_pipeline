@@ -30,6 +30,8 @@ for _, row in df.iterrows():
 
 clean_df = pd.DataFrame(valid_rows)
 
+output_file.parent.mkdir(parents=True, exist_ok=True)
+
 clean_df.to_csv(output_file, index=False)
 
 print(f"Saved {len(clean_df)} valid molecules")
