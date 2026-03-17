@@ -1,0 +1,18 @@
+# data
+data/
+results/
+logs/
+
+# snakemake
+.snakemake/
+
+# environments
+*.conda
+*.env
+
+# python
+__pycache__/
+*.pyc
+
+# system
+.DS_Store
