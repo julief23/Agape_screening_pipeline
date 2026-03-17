@@ -1,39 +1,60 @@
 import pandas as pd
 from pathlib import Path
 
-input_file = Path("data/raw/CID-SMILES.gz")
-output_dir = Path("data/chunks")
-chunk_list_file = output_dir / "chunk_list.txt"
+# -----------------------------
+# Paths
+# -----------------------------
 
-chunk_size = 10000
+INPUT_FILE = Path("data/raw/CID-SMILES.gz")
+OUTPUT_DIR = Path("data/chunks")
+CHUNK_LIST_FILE = OUTPUT_DIR / "chunk_list.txt"
 
-output_dir.mkdir(parents=True, exist_ok=True)
+CHUNK_SIZE = 10000
+
+# -----------------------------
+# Ensure directories exist
+# -----------------------------
+
+OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
+
+# -----------------------------
+# Read PubChem file in chunks
+# -----------------------------
 
 reader = pd.read_csv(
-    input_file,
+    INPUT_FILE,
     sep="\t",
     compression="gzip",
     names=["CID", "SMILES"],
-    chunksize=chunk_size
+    chunksize=CHUNK_SIZE
 )
 
 chunk_ids = []
 
+# -----------------------------
+# Split dataset
+# -----------------------------
+
 for i, chunk in enumerate(reader, start=1):
 
     chunk_id = f"{i:04d}"
-    out_file = output_dir / f"chunk_{chunk_id}.csv"
+    out_file = OUTPUT_DIR / f"chunk_{chunk_id}.csv"
 
     chunk.to_csv(out_file, index=False)
 
     chunk_ids.append(chunk_id)
 
-    print(f"Saved {out_file}")
+    print(f"[SPLIT] Saved {out_file}")
 
-# write list of chunks for Snakemake
-with open(chunk_list_file, "w") as f:
+# -----------------------------
+# Write chunk list for Snakemake
+# -----------------------------
+
+with open(CHUNK_LIST_FILE, "w") as f:
     for cid in chunk_ids:
         f.write(cid + "\n")
 
-print(f"\nTotal chunks created: {len(chunk_ids)}")
-print(f"Chunk list written to: {chunk_list_file}")
+print("\n--------------------------------")
+print(f"Total chunks created: {len(chunk_ids)}")
+print(f"Chunk list written to: {CHUNK_LIST_FILE}")
+print("--------------------------------")
