@@ -1,13 +1,56 @@
-# snakemake
+# -----------------------------
+# Data directories (ignored)
+# -----------------------------
+
+data/*
+!data/.gitkeep
+!data/raw/
+!data/raw/.gitkeep
+!data/chunks/
+!data/chunks/.gitkeep
+!data/processed/
+!data/processed/.gitkeep
+!data/descriptors/
+!data/descriptors/.gitkeep
+!data/predictions/
+!data/predictions/.gitkeep
+
+# -----------------------------
+# Results
+# -----------------------------
+
+results/*
+!results/.gitkeep
+
+# -----------------------------
+# Logs
+# -----------------------------
+
+logs/*
+!logs/.gitkeep
+
+# -----------------------------
+# Snakemake
+# -----------------------------
+
 .snakemake/
 
-# environments
+# -----------------------------
+# Environments
+# -----------------------------
+
 *.conda
 *.env
 
-# python
+# -----------------------------
+# Python
+# -----------------------------
+
 __pycache__/
 *.pyc
 
-# system
+# -----------------------------
+# System
+# -----------------------------
+
 .DS_Store
