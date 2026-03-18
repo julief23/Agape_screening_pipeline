@@ -1,7 +1,7 @@
 from pathlib import Path
 
 wildcard_constraints:
-    chunk = r"\d{4}"
+    chunk = r"\d+"
 
 
 rule all:

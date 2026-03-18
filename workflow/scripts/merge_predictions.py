@@ -8,6 +8,8 @@ output_active = Path(snakemake.output.active)
 output_inactive = Path(snakemake.output.inactive)
 
 output_all.parent.mkdir(parents=True, exist_ok=True)
+output_active.parent.mkdir(parents=True, exist_ok=True)
+output_inactive.parent.mkdir(parents=True, exist_ok=True)
 
 dfs = []
 
