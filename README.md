@@ -16,14 +16,14 @@ The goal of this workflow is to enable **high-throughput in-silico screening of 
 The pipeline performs:
 
 1. Retrieval of the PubChem **CID–SMILES dataset**
-2. Dataset chunking for large-scale processing
+2. Streaming processing of the dataset
 3. SMILES validation and canonicalization
 4. Molecular descriptor computation using **Mordred**
 5. Feature alignment with the trained AGAPE model
 6. Missing value imputation and feature scaling
 7. Activity prediction using **XGBoost**
 8. Confidence filtering of predictions
-9. Merging of screening results
+9. Incremental writing of results
 
 The pipeline is designed for **large datasets (millions of molecules)** and supports parallel execution.
 
@@ -32,13 +32,16 @@ The pipeline is designed for **large datasets (millions of molecules)** and supp
 ## Workflow
 
 ```
-PubChem CID–SMILES
+PubChem CID–SMILES (.gz)
         │
         ▼
 Download dataset
         │
         ▼
-Split dataset into chunks
+Streaming (line-by-line reading)
+        │
+        ▼
+Batch construction
         │
         ▼
 SMILES cleaning and validation
@@ -59,7 +62,7 @@ XGBoost prediction
 Confidence filtering
         │
         ▼
-Merge results
+Append results to output files
 ```
 
 ---
@@ -75,17 +78,14 @@ agape_screening_pipeline
 ├── workflow
 │   ├── scripts
 │   │   ├── fetch_pubchem.py
-│   │   ├── split_pubchem.py
+│   │   ├── stream_pipeline.py   ← main pipeline
 │   │   ├── clean_smiles.py
 │   │   ├── compute_mordred_selected.py
 │   │   ├── align_impute_scale_ml.py
-│   │   ├── predict_xgb.py
-│   │   └── merge_predictions.py
+│   │   └── predict_xgb.py
 │   │
 │   └── envs
-│       ├── rdkit.yaml
-│       ├── mordred.yaml
-│       └── model_ml.yaml
+│       └── full_pipeline.yaml
 │
 ├── models
 │   ├── xgb_final_model.pkl
@@ -94,11 +94,7 @@ agape_screening_pipeline
 │   └── xgb_final_imputer.pkl
 │
 ├── data
-│   ├── raw
-│   ├── chunks
-│   ├── processed
-│   ├── descriptors
-│   └── predictions
+│   └── raw
 │
 ├── results
 └── logs
@@ -149,7 +145,7 @@ conda activate snakemake_env
 Run the full screening workflow with:
 
 ```bash
-snakemake --cores 8 --use-conda
+snakemake --cores 1 --use-conda
 ```
 
 Snakemake will automatically:
