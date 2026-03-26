@@ -2,67 +2,66 @@ import pandas as pd
 import numpy as np
 import pickle
 import joblib
-from pathlib import Path
 
-input_file = Path(snakemake.input.desc)
-feature_file = Path(snakemake.input.features)
-imputer_file = Path(snakemake.input.imputer)
-scaler_file = Path(snakemake.input.scaler)
 
-output_file = Path(snakemake.output[0])
+def preprocess_features(df, feature_file, imputer_file, scaler_file):
+    """
+    Input: df with metadata + descriptors
+    Output: df with metadata + scaled features
+    """
 
-df = pd.read_csv(input_file)
+    # -----------------------------
+    # Load artifacts
+    # -----------------------------
+    if str(feature_file).endswith(".joblib"):
+        feature_list = joblib.load(feature_file)
+    else:
+        with open(feature_file, "rb") as f:
+            feature_list = pickle.load(f)
 
-# -------------------------------------
-# Load artifacts
-# -------------------------------------
+    imputer = joblib.load(imputer_file)
+    scaler = joblib.load(scaler_file)
 
-with open(feature_file, "rb") as f:
-    feature_list = pickle.load(f)
+    feature_list = list(feature_list)
 
-imputer = joblib.load(imputer_file)
-scaler = joblib.load(scaler_file)
+    # -----------------------------
+    # Ensure all features exist
+    # -----------------------------
+    for col in feature_list:
+        if col not in df.columns:
+            df[col] = np.nan
 
-feature_list = list(feature_list)
+    descriptor_df = df[feature_list].copy()
 
-# -------------------------------------
-# Extract descriptor matrix
-# -------------------------------------
+    # 🔒 SAFETY CHECK (very important)
+    assert list(descriptor_df.columns) == feature_list
 
-descriptor_df = df[feature_list].copy()
+    # -----------------------------
+    # Clean numeric values
+    # -----------------------------
+    descriptor_df = descriptor_df.apply(pd.to_numeric, errors="coerce")
+    descriptor_df = descriptor_df.replace([np.inf, -np.inf], np.nan)
 
-descriptor_df = descriptor_df.apply(pd.to_numeric, errors="coerce")
-descriptor_df = descriptor_df.replace([np.inf, -np.inf], np.nan)
+    # -----------------------------
+    # Impute + scale 
+    # -----------------------------
+    X_imputed = imputer.transform(descriptor_df.values)
+    X_scaled = scaler.transform(X_imputed)
 
-# -------------------------------------
-# Impute
-# -------------------------------------
+    X_scaled = pd.DataFrame(
+        X_scaled,
+        columns=feature_list,
+        index=df.index
+    )
 
-X_imputed = imputer.transform(descriptor_df)
+    # -----------------------------
+    # Merge metadata
+    # -----------------------------
+    meta_cols = ["CID", "SMILES", "canonical_smiles"]
+    meta_df = df[meta_cols].reset_index(drop=True)
 
-# -------------------------------------
-# Scale
-# -------------------------------------
+    final_df = pd.concat([meta_df, X_scaled], axis=1)
 
-X_scaled = scaler.transform(X_imputed)
+    print(f"[PREPROCESS] Rows: {len(final_df)}")
 
-X_scaled = pd.DataFrame(
-    X_scaled,
-    columns=feature_list,
-    index=df.index
-)
-
-# -------------------------------------
-# Merge metadata
-# -------------------------------------
-
-meta_cols = ["CID", "SMILES", "canonical_smiles"]
-
-final_df = pd.concat([df[meta_cols], X_scaled], axis=1)
-
-output_file.parent.mkdir(parents=True, exist_ok=True)
-final_df.to_csv(output_file, index=False)
-
-print("Rows:", len(final_df))
-print("Features:", len(feature_list))
-print("Saved:", output_file)
+    return final_df

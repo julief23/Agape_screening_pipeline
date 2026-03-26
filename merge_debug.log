@@ -1,369 +1,0 @@
-Assuming unrestricted shared filesystem usage.
-host: ctm-pc01
-Building DAG of jobs...
-Your conda installation is not configured to use strict channel priorities. This is however important for having robust and correct environments (for details, see https://conda-forge.org/docs/user/tipsandtricks.html). Please consider to configure strict priorities by executing 'conda config --set channel_priority strict'.
-Updating checkpoint dependencies.
-Using shell: /usr/bin/bash
-Provided cores: 1 (use --cores to define parallelism)
-Rules claiming more threads will be scaled down.
-Job stats:
-job                         count
-------------------------  -------
-clean_smiles                12352
-compute_mordred_selected    12352
-align_impute_scale          12352
-predict_xgb                 12352
-merge_predictions               1
-total                       49409
-
-Select jobs to execute...
-Execute 1 jobs...
-
-[Tue Mar 17 15:59:16 2026]
-localrule clean_smiles:
-    input: data/chunks/chunk_5201.csv
-    output: data/processed/clean_5201.csv
-    log: logs/clean_5201.log
-    jobid: 20807
-    reason: Missing output files: data/processed/clean_5201.csv
-    wildcards: chunk=5201
-    resources: tmpdir=/tmp
-Shell command: None
-Activating conda environment: .snakemake/conda/1272c387b309fbc90783ca1efa8e8d34_
-Activating conda environment: .snakemake/conda/1272c387b309fbc90783ca1efa8e8d34_
-Select jobs to execute...
-[15:59:17] WARNING: not removing hydrogen atom without neighbors
-[15:59:17] WARNING: not removing hydrogen atom without neighbors
-[15:59:17] WARNING: not removing hydrogen atom without neighbors
-[15:59:17] WARNING: not removing hydrogen atom without neighbors
-[15:59:17] WARNING: not removing hydrogen atom without neighbors
-[15:59:17] WARNING: not removing hydrogen atom without neighbors
-[15:59:17] WARNING: not removing hydrogen atom without neighbors
-[15:59:17] WARNING: not removing hydrogen atom without neighbors
-[15:59:17] WARNING: not removing hydrogen atom without neighbors
-[15:59:17] WARNING: not removing hydrogen atom without neighbors
-[15:59:17] WARNING: not removing hydrogen atom without neighbors
-[15:59:17] WARNING: not removing hydrogen atom without neighbors
-[15:59:17] WARNING: not removing hydrogen atom without neighbors
-[15:59:17] WARNING: not removing hydrogen atom without neighbors
-[15:59:17] WARNING: not removing hydrogen atom without neighbors
-[15:59:17] WARNING: not removing hydrogen atom without neighbors
-[15:59:17] Explicit valence for atom # 4 Cl, 3, is greater than permitted
-[15:59:18] WARNING: not removing hydrogen atom without neighbors
-[CLEAN] Input file: data/chunks/chunk_5201.csv
-[CLEAN] Output file: data/processed/clean_5201.csv
-[CLEAN] Input rows: 10000
-[CLEAN] Valid molecules: 9999
-[Tue Mar 17 15:59:19 2026]
-Finished jobid: 20807 (Rule: clean_smiles)
-1 of 49409 steps (0.0%) done
-Execute 1 jobs...
-
-[Tue Mar 17 15:59:19 2026]
-localrule clean_smiles:
-    input: data/chunks/chunk_0273.csv
-    output: data/processed/clean_0273.csv
-    log: logs/clean_0273.log
-    jobid: 1095
-    reason: Missing output files: data/processed/clean_0273.csv
-    wildcards: chunk=0273
-    resources: tmpdir=/tmp
-Shell command: None
-Activating conda environment: .snakemake/conda/1272c387b309fbc90783ca1efa8e8d34_
-Select jobs to execute...
-Activating conda environment: .snakemake/conda/1272c387b309fbc90783ca1efa8e8d34_
-[CLEAN] Input file: data/chunks/chunk_0273.csv
-[CLEAN] Output file: data/processed/clean_0273.csv
-[CLEAN] Input rows: 10000
-[CLEAN] Valid molecules: 10000
-[Tue Mar 17 15:59:23 2026]
-Finished jobid: 1095 (Rule: clean_smiles)
-2 of 49409 steps (0.0%) done
-Execute 1 jobs...
-
-[Tue Mar 17 15:59:23 2026]
-localrule compute_mordred_selected:
-    input: data/processed/clean_0273.csv, models/xgb_feature_list.pkl
-    output: data/descriptors/desc_0273.csv
-    log: logs/mordred_0273.log
-    jobid: 1094
-    reason: Missing output files: data/descriptors/desc_0273.csv; Input files updated by another job: data/processed/clean_0273.csv
-    wildcards: chunk=0273
-    resources: tmpdir=/tmp
-Shell command: None
-Select jobs to execute...
-Activating conda environment: .snakemake/conda/081624c668d80d3b21c78ddc9591a1f2_
-Activating conda environment: .snakemake/conda/081624c668d80d3b21c78ddc9591a1f2_
-/home/jfares/Desktop/agape_pipeline/Agape_screening_pipeline/.snakemake/scripts/tmpm4pak4ks.compute_mordred_selected.py:13: FutureWarning: In the future `np.bool` will be defined as the corresponding NumPy scalar.
-  if not hasattr(np, "bool"):
-  0%|          | 0/10000 [00:00<?, ?it/s]  0%|          | 16/10000 [00:00<01:05, 152.40it/s]  0%|          | 45/10000 [00:00<00:42, 231.68it/s]  1%|          | 70/10000 [00:00<00:43, 229.29it/s]  1%|          | 97/10000 [00:00<00:40, 244.72it/s]  1%|          | 123/10000 [00:00<00:39, 248.93it/s]  1%|▏         | 148/10000 [00:00<00:45, 215.80it/s]  2%|▏         | 173/10000 [00:00<00:43, 225.30it/s]  2%|▏         | 202/10000 [00:00<00:40, 240.95it/s]  2%|▏         | 233/10000 [00:00<00:37, 260.91it/s]  3%|▎         | 260/10000 [00:01<00:37, 259.88it/s]  3%|▎         | 287/10000 [00:01<00:50, 192.35it/s]  3%|▎         | 309/10000 [00:01<00:50, 191.74it/s]  3%|▎         | 347/10000 [00:01<00:40, 236.06it/s]  4%|▎         | 373/10000 [00:01<00:41, 233.20it/s]  4%|▍         | 398/10000 [00:01<00:40, 237.00it/s]  4%|▍         | 423/10000 [00:01<00:42, 225.13it/s]  4%|▍         | 447/10000 [00:01<00:42, 224.89it/s]  5%|▍         | 471/10000 [00:02<00:41, 229.00it/s]  5%|▍         | 495/10000 [00:02<00:41, 230.80it/s]  5%|▌         | 524/10000 [00:02<00:39, 241.53it/s]  6%|▌         | 556/10000 [00:02<00:36, 261.71it/s]  6%|▌         | 583/10000 [00:02<00:37, 249.20it/s]  6%|▌         | 609/10000 [00:02<00:39, 239.24it/s]  6%|▋         | 639/10000 [00:02<00:36, 255.37it/s]  7%|▋         | 665/10000 [00:02<00:39, 237.76it/s]  7%|▋         | 690/10000 [00:02<00:40, 227.95it/s]  7%|▋         | 715/10000 [00:03<00:39, 233.80it/s]  7%|▋         | 739/10000 [00:03<00:39, 235.50it/s]  8%|▊         | 764/10000 [00:03<00:38, 238.54it/s]  8%|▊         | 792/10000 [00:03<00:36, 249.55it/s]  8%|▊         | 818/10000 [00:03<00:39, 231.19it/s]  8%|▊         | 849/10000 [00:03<00:36, 247.53it/s]  9%|▉         | 875/10000 [00:03<00:36, 247.83it/s]  9%|▉         | 901/10000 [00:03<00:37, 244.30it/s]  9%|▉         | 926/10000 [00:03<00:36, 245.55it/s] 10%|▉         | 952/10000 [00:04<00:36, 248.33it/s] 10%|▉         | 977/10000 [00:04<00:38, 236.43it/s] 10%|█         | 1006/10000 [00:04<00:35, 251.11it/s] 10%|█         | 1038/10000 [00:04<00:33, 270.67it/s] 11%|█         | 1066/10000 [00:04<00:33, 267.85it/s] 11%|█         | 1093/10000 [00:04<00:34, 261.50it/s] 11%|█         | 1123/10000 [00:04<00:32, 271.92it/s] 12%|█▏        | 1151/10000 [00:04<00:33, 263.85it/s] 12%|█▏        | 1178/10000 [00:04<00:34, 254.02it/s] 12%|█▏        | 1204/10000 [00:05<00:35, 246.08it/s] 12%|█▏        | 1233/10000 [00:05<00:34, 251.17it/s] 13%|█▎        | 1259/10000 [00:05<00:34, 251.37it/s] 13%|█▎        | 1285/10000 [00:05<00:36, 236.96it/s] 13%|█▎        | 1309/10000 [00:05<00:37, 232.67it/s] 13%|█▎        | 1344/10000 [00:05<00:32, 262.40it/s] 14%|█▍        | 1383/10000 [00:05<00:28, 297.81it/s] 14%|█▍        | 1421/10000 [00:05<00:27, 313.50it/s] 15%|█▍        | 1461/10000 [00:05<00:25, 338.13it/s] 15%|█▌        | 1500/10000 [00:05<00:24, 344.17it/s] 15%|█▌        | 1535/10000 [00:06<00:24, 338.99it/s] 16%|█▌        | 1570/10000 [00:06<00:29, 288.06it/s] 16%|█▌        | 1602/10000 [00:06<00:28, 294.89it/s] 16%|█▋        | 1638/10000 [00:06<00:26, 311.55it/s] 17%|█▋        | 1671/10000 [00:06<00:32, 260.03it/s] 17%|█▋        | 1699/10000 [00:06<00:38, 213.08it/s] 17%|█▋        | 1723/10000 [00:06<00:42, 193.58it/s] 18%|█▊        | 1757/10000 [00:07<00:37, 217.19it/s] 18%|█▊        | 1788/10000 [00:07<00:34, 235.32it/s] 18%|█▊        | 1819/10000 [00:07<00:32, 251.54it/s] 19%|█▊        | 1852/10000 [00:07<00:30, 267.56it/s] 19%|█▉        | 1881/10000 [00:07<00:29, 270.76it/s] 19%|█▉        | 1909/10000 [00:07<00:32, 250.80it/s] 19%|█▉        | 1937/10000 [00:07<00:31, 254.02it/s] 20%|█▉        | 1964/10000 [00:07<00:33, 243.47it/s] 20%|█▉        | 1989/10000 [00:08<00:34, 229.46it/s] 20%|██        | 2021/10000 [00:08<00:31, 252.55it/s] 21%|██        | 2056/10000 [00:08<00:28, 278.67it/s] 21%|██        | 2090/10000 [00:08<00:27, 292.56it/s] 21%|██        | 2124/10000 [00:08<00:25, 304.11it/s] 22%|██▏       | 2157/10000 [00:08<00:25, 310.66it/s] 22%|██▏       | 2189/10000 [00:08<00:25, 304.66it/s] 22%|██▏       | 2228/10000 [00:08<00:23, 328.37it/s] 23%|██▎       | 2267/10000 [00:08<00:22, 339.54it/s] 23%|██▎       | 2305/10000 [00:08<00:22, 348.82it/s] 23%|██▎       | 2341/10000 [00:09<00:22, 344.21it/s] 24%|██▍       | 2376/10000 [00:09<00:22, 339.61it/s] 24%|██▍       | 2411/10000 [00:09<00:24, 310.36it/s] 24%|██▍       | 2443/10000 [00:09<00:24, 306.48it/s] 25%|██▍       | 2474/10000 [00:09<00:25, 298.02it/s] 25%|██▌       | 2505/10000 [00:09<00:27, 272.46it/s] 25%|██▌       | 2534/10000 [00:09<00:26, 276.83it/s] 26%|██▌       | 2563/10000 [00:09<00:30, 243.91it/s] 26%|██▌       | 2590/10000 [00:10<00:29, 248.32it/s] 26%|██▌       | 2622/10000 [00:10<00:27, 264.00it/s]Exception ignored in: <Finalize object, dead>
-Process ForkPoolWorker-2:
-Traceback (most recent call last):
-  File "/home/jfares/Desktop/agape_pipeline/Agape_screening_pipeline/.snakemake/conda/081624c668d80d3b21c78ddc9591a1f2_/lib/python3.11/multiprocessing/util.py", line 227, in __call__
-Terminating processes on user request, this might take some time.
-Exception ignored in: <Finalize object, dead>
-Traceback (most recent call last):
-  File "/home/jfares/Desktop/agape_pipeline/Agape_screening_pipeline/.snakemake/conda/081624c668d80d3b21c78ddc9591a1f2_/lib/python3.11/multiprocessing/util.py", line 227, in __call__
-Exception ignored in: <Finalize object, dead>
-Traceback (most recent call last):
-  File "/home/jfares/Desktop/agape_pipeline/Agape_screening_pipeline/.snakemake/conda/081624c668d80d3b21c78ddc9591a1f2_/lib/python3.11/multiprocessing/util.py", line 227, in __call__
- 26%|██▋       | 2637/10000 [00:10<00:28, 259.53it/s]
-Process ForkPoolWorker-1:
-    res = self._callback(*self._args, **self._kwargs)
-    res = self._callback(*self._args, **self._kwargs)
-          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/jfares/Desktop/agape_pipeline/Agape_screening_pipeline/.snakemake/conda/081624c668d80d3b21c78ddc9591a1f2_/lib/python3.11/multiprocessing/managers.py", line 874, in _decref
-  File "/home/jfares/Desktop/agape_pipeline/Agape_screening_pipeline/.snakemake/conda/081624c668d80d3b21c78ddc9591a1f2_/lib/python3.11/multiprocessing/managers.py", line 874, in _decref
-    res = self._callback(*self._args, **self._kwargs)
-          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/jfares/Desktop/agape_pipeline/Agape_screening_pipeline/.snakemake/conda/081624c668d80d3b21c78ddc9591a1f2_/lib/python3.11/multiprocessing/managers.py", line 874, in _decref
-    conn = _Client(token.address, authkey=authkey)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-    conn = _Client(token.address, authkey=authkey)
-  File "/home/jfares/Desktop/agape_pipeline/Agape_screening_pipeline/.snakemake/conda/081624c668d80d3b21c78ddc9591a1f2_/lib/python3.11/multiprocessing/connection.py", line 525, in Client
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/jfares/Desktop/agape_pipeline/Agape_screening_pipeline/.snakemake/conda/081624c668d80d3b21c78ddc9591a1f2_/lib/python3.11/multiprocessing/connection.py", line 525, in Client
-    answer_challenge(c, authkey)
-    answer_challenge(c, authkey)
-  File "/home/jfares/Desktop/agape_pipeline/Agape_screening_pipeline/.snakemake/conda/081624c668d80d3b21c78ddc9591a1f2_/lib/python3.11/multiprocessing/connection.py", line 769, in answer_challenge
-  File "/home/jfares/Desktop/agape_pipeline/Agape_screening_pipeline/.snakemake/conda/081624c668d80d3b21c78ddc9591a1f2_/lib/python3.11/multiprocessing/connection.py", line 769, in answer_challenge
-Process ForkPoolWorker-7:
-    message = connection.recv_bytes(256)         # reject large message
-              ^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/jfares/Desktop/agape_pipeline/Agape_screening_pipeline/.snakemake/conda/081624c668d80d3b21c78ddc9591a1f2_/lib/python3.11/multiprocessing/connection.py", line 216, in recv_bytes
-    message = connection.recv_bytes(256)         # reject large message
-              ^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/jfares/Desktop/agape_pipeline/Agape_screening_pipeline/.snakemake/conda/081624c668d80d3b21c78ddc9591a1f2_/lib/python3.11/multiprocessing/connection.py", line 216, in recv_bytes
-    buf = self._recv_bytes(maxlength)
-          ^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/jfares/Desktop/agape_pipeline/Agape_screening_pipeline/.snakemake/conda/081624c668d80d3b21c78ddc9591a1f2_/lib/python3.11/multiprocessing/connection.py", line 430, in _recv_bytes
-    buf = self._recv_bytes(maxlength)
-          ^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/jfares/Desktop/agape_pipeline/Agape_screening_pipeline/.snakemake/conda/081624c668d80d3b21c78ddc9591a1f2_/lib/python3.11/multiprocessing/connection.py", line 430, in _recv_bytes
-    buf = self._recv(4)
-          ^^^^^^^^^^^^^
-  File "/home/jfares/Desktop/agape_pipeline/Agape_screening_pipeline/.snakemake/conda/081624c668d80d3b21c78ddc9591a1f2_/lib/python3.11/multiprocessing/connection.py", line 395, in _recv
-    buf = self._recv(4)
-          ^^^^^^^^^^^^^
-  File "/home/jfares/Desktop/agape_pipeline/Agape_screening_pipeline/.snakemake/conda/081624c668d80d3b21c78ddc9591a1f2_/lib/python3.11/multiprocessing/connection.py", line 395, in _recv
-Process ForkPoolWorker-6:
-    chunk = read(handle, remaining)
-            ^^^^^^^^^^^^^^^^^^^^^^^
-KeyboardInterrupt: 
-    chunk = read(handle, remaining)
-            ^^^^^^^^^^^^^^^^^^^^^^^
-KeyboardInterrupt: 
-    conn = _Client(token.address, authkey=authkey)
-Traceback (most recent call last):
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/jfares/Desktop/agape_pipeline/Agape_screening_pipeline/.snakemake/conda/081624c668d80d3b21c78ddc9591a1f2_/lib/python3.11/multiprocessing/connection.py", line 525, in Client
-    answer_challenge(c, authkey)
-  File "/home/jfares/Desktop/agape_pipeline/Agape_screening_pipeline/.snakemake/conda/081624c668d80d3b21c78ddc9591a1f2_/lib/python3.11/multiprocessing/connection.py", line 769, in answer_challenge
-    message = connection.recv_bytes(256)         # reject large message
-              ^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/jfares/Desktop/agape_pipeline/Agape_screening_pipeline/.snakemake/conda/081624c668d80d3b21c78ddc9591a1f2_/lib/python3.11/multiprocessing/connection.py", line 216, in recv_bytes
-    buf = self._recv_bytes(maxlength)
-          ^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/jfares/Desktop/agape_pipeline/Agape_screening_pipeline/.snakemake/conda/081624c668d80d3b21c78ddc9591a1f2_/lib/python3.11/multiprocessing/connection.py", line 430, in _recv_bytes
-    buf = self._recv(4)
-          ^^^^^^^^^^^^^
-  File "/home/jfares/Desktop/agape_pipeline/Agape_screening_pipeline/.snakemake/conda/081624c668d80d3b21c78ddc9591a1f2_/lib/python3.11/multiprocessing/connection.py", line 395, in _recv
-  File "/home/jfares/Desktop/agape_pipeline/Agape_screening_pipeline/.snakemake/conda/081624c668d80d3b21c78ddc9591a1f2_/lib/python3.11/multiprocessing/process.py", line 314, in _bootstrap
-    self.run()
-  File "/home/jfares/Desktop/agape_pipeline/Agape_screening_pipeline/.snakemake/conda/081624c668d80d3b21c78ddc9591a1f2_/lib/python3.11/multiprocessing/process.py", line 108, in run
-    self._target(*self._args, **self._kwargs)
-  File "/home/jfares/Desktop/agape_pipeline/Agape_screening_pipeline/.snakemake/conda/081624c668d80d3b21c78ddc9591a1f2_/lib/python3.11/multiprocessing/pool.py", line 114, in worker
-    task = get()
-           ^^^^^
-Traceback (most recent call last):
-  File "/home/jfares/Desktop/agape_pipeline/Agape_screening_pipeline/.snakemake/conda/081624c668d80d3b21c78ddc9591a1f2_/lib/python3.11/multiprocessing/queues.py", line 367, in get
-    return _ForkingPickler.loads(res)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/jfares/Desktop/agape_pipeline/Agape_screening_pipeline/.snakemake/conda/081624c668d80d3b21c78ddc9591a1f2_/lib/python3.11/multiprocessing/managers.py", line 946, in RebuildProxy
-    return func(token, serializer, incref=incref, **kwds)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/jfares/Desktop/agape_pipeline/Agape_screening_pipeline/.snakemake/conda/081624c668d80d3b21c78ddc9591a1f2_/lib/python3.11/multiprocessing/managers.py", line 796, in __init__
-    self._incref()
-  File "/home/jfares/Desktop/agape_pipeline/Agape_screening_pipeline/.snakemake/conda/081624c668d80d3b21c78ddc9591a1f2_/lib/python3.11/multiprocessing/managers.py", line 850, in _incref
-    conn = self._Client(self._token.address, authkey=self._authkey)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/jfares/Desktop/agape_pipeline/Agape_screening_pipeline/.snakemake/conda/081624c668d80d3b21c78ddc9591a1f2_/lib/python3.11/multiprocessing/connection.py", line 525, in Client
-    answer_challenge(c, authkey)
-    chunk = read(handle, remaining)
-  File "/home/jfares/Desktop/agape_pipeline/Agape_screening_pipeline/.snakemake/conda/081624c668d80d3b21c78ddc9591a1f2_/lib/python3.11/multiprocessing/connection.py", line 769, in answer_challenge
-    message = connection.recv_bytes(256)         # reject large message
-              ^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/jfares/Desktop/agape_pipeline/Agape_screening_pipeline/.snakemake/conda/081624c668d80d3b21c78ddc9591a1f2_/lib/python3.11/multiprocessing/connection.py", line 216, in recv_bytes
-    buf = self._recv_bytes(maxlength)
-          ^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/jfares/Desktop/agape_pipeline/Agape_screening_pipeline/.snakemake/conda/081624c668d80d3b21c78ddc9591a1f2_/lib/python3.11/multiprocessing/connection.py", line 430, in _recv_bytes
-    buf = self._recv(4)
-          ^^^^^^^^^^^^^
-  File "/home/jfares/Desktop/agape_pipeline/Agape_screening_pipeline/.snakemake/conda/081624c668d80d3b21c78ddc9591a1f2_/lib/python3.11/multiprocessing/connection.py", line 395, in _recv
-    chunk = read(handle, remaining)
-            ^^^^^^^^^^^^^^^^^^^^^^^
-            ^^^^^^^^^^^^^^^^^^^^^^^
-KeyboardInterrupt: 
-KeyboardInterrupt
-Traceback (most recent call last):
-Traceback (most recent call last):
-  File "/home/jfares/Desktop/agape_pipeline/Agape_screening_pipeline/.snakemake/conda/081624c668d80d3b21c78ddc9591a1f2_/lib/python3.11/multiprocessing/process.py", line 314, in _bootstrap
-    self.run()
-  File "/home/jfares/Desktop/agape_pipeline/Agape_screening_pipeline/.snakemake/conda/081624c668d80d3b21c78ddc9591a1f2_/lib/python3.11/multiprocessing/process.py", line 108, in run
-    self._target(*self._args, **self._kwargs)
-  File "/home/jfares/Desktop/agape_pipeline/Agape_screening_pipeline/.snakemake/conda/081624c668d80d3b21c78ddc9591a1f2_/lib/python3.11/multiprocessing/pool.py", line 114, in worker
-    task = get()
-           ^^^^^
-  File "/home/jfares/Desktop/agape_pipeline/Agape_screening_pipeline/.snakemake/conda/081624c668d80d3b21c78ddc9591a1f2_/lib/python3.11/multiprocessing/queues.py", line 367, in get
-    return _ForkingPickler.loads(res)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/jfares/Desktop/agape_pipeline/Agape_screening_pipeline/.snakemake/conda/081624c668d80d3b21c78ddc9591a1f2_/lib/python3.11/multiprocessing/managers.py", line 946, in RebuildProxy
-    return func(token, serializer, incref=incref, **kwds)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/jfares/Desktop/agape_pipeline/Agape_screening_pipeline/.snakemake/conda/081624c668d80d3b21c78ddc9591a1f2_/lib/python3.11/multiprocessing/managers.py", line 796, in __init__
-    self._incref()
-  File "/home/jfares/Desktop/agape_pipeline/Agape_screening_pipeline/.snakemake/conda/081624c668d80d3b21c78ddc9591a1f2_/lib/python3.11/multiprocessing/managers.py", line 850, in _incref
-    conn = self._Client(self._token.address, authkey=self._authkey)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/jfares/Desktop/agape_pipeline/Agape_screening_pipeline/.snakemake/conda/081624c668d80d3b21c78ddc9591a1f2_/lib/python3.11/multiprocessing/connection.py", line 525, in Client
-    answer_challenge(c, authkey)
-  File "/home/jfares/Desktop/agape_pipeline/Agape_screening_pipeline/.snakemake/conda/081624c668d80d3b21c78ddc9591a1f2_/lib/python3.11/multiprocessing/connection.py", line 769, in answer_challenge
-    message = connection.recv_bytes(256)         # reject large message
-              ^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/jfares/Desktop/agape_pipeline/Agape_screening_pipeline/.snakemake/conda/081624c668d80d3b21c78ddc9591a1f2_/lib/python3.11/multiprocessing/connection.py", line 216, in recv_bytes
-    buf = self._recv_bytes(maxlength)
-          ^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/jfares/Desktop/agape_pipeline/Agape_screening_pipeline/.snakemake/conda/081624c668d80d3b21c78ddc9591a1f2_/lib/python3.11/multiprocessing/connection.py", line 430, in _recv_bytes
-    buf = self._recv(4)
-          ^^^^^^^^^^^^^
-  File "/home/jfares/Desktop/agape_pipeline/Agape_screening_pipeline/.snakemake/conda/081624c668d80d3b21c78ddc9591a1f2_/lib/python3.11/multiprocessing/connection.py", line 395, in _recv
-    chunk = read(handle, remaining)
-            ^^^^^^^^^^^^^^^^^^^^^^^
-KeyboardInterrupt
-  File "/home/jfares/Desktop/agape_pipeline/Agape_screening_pipeline/.snakemake/conda/081624c668d80d3b21c78ddc9591a1f2_/lib/python3.11/multiprocessing/process.py", line 314, in _bootstrap
-    self.run()
-  File "/home/jfares/Desktop/agape_pipeline/Agape_screening_pipeline/.snakemake/conda/081624c668d80d3b21c78ddc9591a1f2_/lib/python3.11/multiprocessing/process.py", line 108, in run
-    self._target(*self._args, **self._kwargs)
-  File "/home/jfares/Desktop/agape_pipeline/Agape_screening_pipeline/.snakemake/conda/081624c668d80d3b21c78ddc9591a1f2_/lib/python3.11/multiprocessing/pool.py", line 125, in worker
-    result = (True, func(*args, **kwds))
-                    ^^^^^^^^^^^^^^^^^^^
-  File "/home/jfares/Desktop/agape_pipeline/Agape_screening_pipeline/.snakemake/conda/081624c668d80d3b21c78ddc9591a1f2_/lib/python3.11/site-packages/mordred/_base/parallel.py", line 17, in worker
-    r = list(calculator._calculate(cxt))
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/jfares/Desktop/agape_pipeline/Agape_screening_pipeline/.snakemake/conda/081624c668d80d3b21c78ddc9591a1f2_/lib/python3.11/site-packages/mordred/_base/calculator.py", line 273, in _calculate
-    _, r = self._calculate_one(cxt, desc, True)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/jfares/Desktop/agape_pipeline/Agape_screening_pipeline/.snakemake/conda/081624c668d80d3b21c78ddc9591a1f2_/lib/python3.11/site-packages/mordred/_base/calculator.py", line 239, in _calculate_one
-    ok, r = self._calculate_one(cxt, dep, False)
-            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/jfares/Desktop/agape_pipeline/Agape_screening_pipeline/.snakemake/conda/081624c668d80d3b21c78ddc9591a1f2_/lib/python3.11/site-packages/mordred/_base/calculator.py", line 224, in _calculate_one
-    return self._cache[desc]
-           ~~~~~~~~~~~^^^^^^
-  File "/home/jfares/Desktop/agape_pipeline/Agape_screening_pipeline/.snakemake/conda/081624c668d80d3b21c78ddc9591a1f2_/lib/python3.11/site-packages/mordred/_base/descriptor.py", line 157, in __hash__
-    def __hash__(self):
-    
-KeyboardInterrupt
-  File "/home/jfares/Desktop/agape_pipeline/Agape_screening_pipeline/.snakemake/conda/081624c668d80d3b21c78ddc9591a1f2_/lib/python3.11/multiprocessing/process.py", line 314, in _bootstrap
-    self.run()
-  File "/home/jfares/Desktop/agape_pipeline/Agape_screening_pipeline/.snakemake/conda/081624c668d80d3b21c78ddc9591a1f2_/lib/python3.11/multiprocessing/process.py", line 108, in run
-    self._target(*self._args, **self._kwargs)
-  File "/home/jfares/Desktop/agape_pipeline/Agape_screening_pipeline/.snakemake/conda/081624c668d80d3b21c78ddc9591a1f2_/lib/python3.11/multiprocessing/pool.py", line 125, in worker
-    result = (True, func(*args, **kwds))
-                    ^^^^^^^^^^^^^^^^^^^
-  File "/home/jfares/Desktop/agape_pipeline/Agape_screening_pipeline/.snakemake/conda/081624c668d80d3b21c78ddc9591a1f2_/lib/python3.11/site-packages/mordred/_base/parallel.py", line 17, in worker
-    r = list(calculator._calculate(cxt))
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/jfares/Desktop/agape_pipeline/Agape_screening_pipeline/.snakemake/conda/081624c668d80d3b21c78ddc9591a1f2_/lib/python3.11/site-packages/mordred/_base/calculator.py", line 273, in _calculate
-    _, r = self._calculate_one(cxt, desc, True)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/jfares/Desktop/agape_pipeline/Agape_screening_pipeline/.snakemake/conda/081624c668d80d3b21c78ddc9591a1f2_/lib/python3.11/site-packages/mordred/_base/calculator.py", line 239, in _calculate_one
-    ok, r = self._calculate_one(cxt, dep, False)
-            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/jfares/Desktop/agape_pipeline/Agape_screening_pipeline/.snakemake/conda/081624c668d80d3b21c78ddc9591a1f2_/lib/python3.11/site-packages/mordred/_base/calculator.py", line 247, in _calculate_one
-    r = desc.calculate(**args)
-        ^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/jfares/Desktop/agape_pipeline/Agape_screening_pipeline/.snakemake/conda/081624c668d80d3b21c78ddc9591a1f2_/lib/python3.11/site-packages/mordred/Chi.py", line 148, in calculate
-    dfs.reset(bonds)
-  File "/home/jfares/Desktop/agape_pipeline/Agape_screening_pipeline/.snakemake/conda/081624c668d80d3b21c78ddc9591a1f2_/lib/python3.11/site-packages/mordred/Chi.py", line 71, in reset
-    def reset(self, use_bonds):
-    
-KeyboardInterrupt
-Process ForkPoolWorker-4:
-Traceback (most recent call last):
-  File "/home/jfares/Desktop/agape_pipeline/Agape_screening_pipeline/.snakemake/conda/081624c668d80d3b21c78ddc9591a1f2_/lib/python3.11/multiprocessing/process.py", line 314, in _bootstrap
-    self.run()
-  File "/home/jfares/Desktop/agape_pipeline/Agape_screening_pipeline/.snakemake/conda/081624c668d80d3b21c78ddc9591a1f2_/lib/python3.11/multiprocessing/process.py", line 108, in run
-    self._target(*self._args, **self._kwargs)
-  File "/home/jfares/Desktop/agape_pipeline/Agape_screening_pipeline/.snakemake/conda/081624c668d80d3b21c78ddc9591a1f2_/lib/python3.11/multiprocessing/pool.py", line 125, in worker
-    result = (True, func(*args, **kwds))
-                    ^^^^^^^^^^^^^^^^^^^
-  File "/home/jfares/Desktop/agape_pipeline/Agape_screening_pipeline/.snakemake/conda/081624c668d80d3b21c78ddc9591a1f2_/lib/python3.11/site-packages/mordred/_base/parallel.py", line 17, in worker
-    r = list(calculator._calculate(cxt))
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/jfares/Desktop/agape_pipeline/Agape_screening_pipeline/.snakemake/conda/081624c668d80d3b21c78ddc9591a1f2_/lib/python3.11/site-packages/mordred/_base/calculator.py", line 273, in _calculate
-    _, r = self._calculate_one(cxt, desc, True)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/jfares/Desktop/agape_pipeline/Agape_screening_pipeline/.snakemake/conda/081624c668d80d3b21c78ddc9591a1f2_/lib/python3.11/site-packages/mordred/_base/calculator.py", line 239, in _calculate_one
-    ok, r = self._calculate_one(cxt, dep, False)
-            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/jfares/Desktop/agape_pipeline/Agape_screening_pipeline/.snakemake/conda/081624c668d80d3b21c78ddc9591a1f2_/lib/python3.11/site-packages/mordred/_base/calculator.py", line 247, in _calculate_one
-    r = desc.calculate(**args)
-        ^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/jfares/Desktop/agape_pipeline/Agape_screening_pipeline/.snakemake/conda/081624c668d80d3b21c78ddc9591a1f2_/lib/python3.11/site-packages/mordred/BCUT.py", line 63, in calculate
-    ev = np.linalg.eig(bmat)[0]
-         ^^^^^^^^^^^^^^^^^^^
-  File "/home/jfares/Desktop/agape_pipeline/Agape_screening_pipeline/.snakemake/conda/081624c668d80d3b21c78ddc9591a1f2_/lib/python3.11/site-packages/numpy/linalg/linalg.py", line 1335, in eig
-    w, vt = _umath_linalg.eig(a, signature=signature, extobj=extobj)
-            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-KeyboardInterrupt
-Traceback (most recent call last):
-  File "/home/jfares/Desktop/agape_pipeline/Agape_screening_pipeline/.snakemake/scripts/tmpm4pak4ks.compute_mordred_selected.py", line 75, in <module>
-    desc_df = calc.pandas(mols)
-              ^^^^^^^^^^^^^^^^^
-  File "/home/jfares/Desktop/agape_pipeline/Agape_screening_pipeline/.snakemake/conda/081624c668d80d3b21c78ddc9591a1f2_/lib/python3.11/site-packages/mordred/_base/calculator.py", line 397, in pandas
-    return MordredDataFrame(
-           ^^^^^^^^^^^^^^^^^
-  File "/home/jfares/Desktop/agape_pipeline/Agape_screening_pipeline/.snakemake/conda/081624c668d80d3b21c78ddc9591a1f2_/lib/python3.11/site-packages/pandas/core/frame.py", line 829, in __init__
-    data = list(data)
-           ^^^^^^^^^^
-  File "/home/jfares/Desktop/agape_pipeline/Agape_screening_pipeline/.snakemake/conda/081624c668d80d3b21c78ddc9591a1f2_/lib/python3.11/site-packages/mordred/_base/calculator.py", line 398, in <genexpr>
-    (list(r) for r in self.map(mols, nproc, nmols, quiet, ipynb, id)),
-    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/jfares/Desktop/agape_pipeline/Agape_screening_pipeline/.snakemake/conda/081624c668d80d3b21c78ddc9591a1f2_/lib/python3.11/site-packages/mordred/_base/parallel.py", line 79, in parallel
-    for mol, (r, err) in pool.map(mols, id):
-  File "/home/jfares/Desktop/agape_pipeline/Agape_screening_pipeline/.snakemake/conda/081624c668d80d3b21c78ddc9591a1f2_/lib/python3.11/site-packages/mordred/_base/parallel.py", line 64, in __next__
-    self.submit(next(self.mols))
-  File "/home/jfares/Desktop/agape_pipeline/Agape_screening_pipeline/.snakemake/conda/081624c668d80d3b21c78ddc9591a1f2_/lib/python3.11/site-packages/mordred/_base/parallel.py", line 57, in submit
-    self.futures.append((mol, self.pool.submit(mol, self.id)))
-                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/jfares/Desktop/agape_pipeline/Agape_screening_pipeline/.snakemake/conda/081624c668d80d3b21c78ddc9591a1f2_/lib/python3.11/site-packages/mordred/_base/parallel.py", line 43, in submit
-    return self.pool.apply_async(worker, (self.calc_proxy, cxt))
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/jfares/Desktop/agape_pipeline/Agape_screening_pipeline/.snakemake/conda/081624c668d80d3b21c78ddc9591a1f2_/lib/python3.11/multiprocessing/pool.py", line 459, in apply_async
-    result = ApplyResult(self, callback, error_callback)
-             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/jfares/Desktop/agape_pipeline/Agape_screening_pipeline/.snakemake/conda/081624c668d80d3b21c78ddc9591a1f2_/lib/python3.11/multiprocessing/pool.py", line 749, in __init__
-    self._event = threading.Event()
-                  ^^^^^^^^^^^^^^^^^
-  File "/home/jfares/Desktop/agape_pipeline/Agape_screening_pipeline/.snakemake/conda/081624c668d80d3b21c78ddc9591a1f2_/lib/python3.11/threading.py", line 563, in __init__
-    self._cond = Condition(Lock())
-                 ^^^^^^^^^^^^^^^^^
-  File "/home/jfares/Desktop/agape_pipeline/Agape_screening_pipeline/.snakemake/conda/081624c668d80d3b21c78ddc9591a1f2_/lib/python3.11/threading.py", line 265, in __init__
-    self._waiters = _deque()
-                    ^^^^^^^^
-KeyboardInterrupt
-RuleException:
-CalledProcessError in file "/home/jfares/Desktop/agape_pipeline/Agape_screening_pipeline/Snakefile", line 82:
-Command 'source /home/jfares/miniconda3/bin/activate '/home/jfares/Desktop/agape_pipeline/Agape_screening_pipeline/.snakemake/conda/081624c668d80d3b21c78ddc9591a1f2_'; set -euo pipefail;  python /home/jfares/Desktop/agape_pipeline/Agape_screening_pipeline/.snakemake/scripts/tmpm4pak4ks.compute_mordred_selected.py' died with <Signals.SIGINT: 2>.
-[Tue Mar 17 15:59:37 2026]
-Error in rule compute_mordred_selected:
-    message: None
-    jobid: 1094
-    input: data/processed/clean_0273.csv, models/xgb_feature_list.pkl
-    output: data/descriptors/desc_0273.csv
-    log: logs/mordred_0273.log (check log file(s) for error details)
-    conda-env: /home/jfares/Desktop/agape_pipeline/Agape_screening_pipeline/.snakemake/conda/081624c668d80d3b21c78ddc9591a1f2_
-Complete log(s): /home/jfares/Desktop/agape_pipeline/Agape_screening_pipeline/.snakemake/log/2026-03-17T155855.589999.snakemake.log
-WorkflowError:
-At least one job did not complete successfully.

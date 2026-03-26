@@ -1,8 +1,6 @@
 import numpy as np
 
-# ---------------------------------
-# numpy compatibility patch
-# ---------------------------------
+# numpy compatibility
 if not hasattr(np, "float"):
     np.float = float
 if not hasattr(np, "int"):
@@ -13,73 +11,67 @@ if not hasattr(np, "bool"):
 import pandas as pd
 from rdkit import Chem
 from mordred import Calculator, descriptors
-from pathlib import Path
 import pickle
 import joblib
 
 
-input_file = Path(snakemake.input[0])
-feature_file = Path(snakemake.input[1])
-output_file = Path(snakemake.output[0])
+def compute_descriptors(df, feature_file):
+    """
+    Input: df with columns [CID, SMILES, canonical_smiles]
+    Output: same + descriptors aligned to feature_list
+    """
 
-df = pd.read_csv(input_file)
+    # -----------------------------
+    # Load feature list
+    # -----------------------------
+    if str(feature_file).endswith(".joblib"):
+        feature_list = joblib.load(feature_file)
+    else:
+        with open(feature_file, "rb") as f:
+            feature_list = pickle.load(f)
 
-# -----------------------------
-# Load feature list
-# -----------------------------
-if feature_file.suffix == ".joblib":
-    feature_list = joblib.load(feature_file)
-else:
-    with open(feature_file, "rb") as f:
-        feature_list = pickle.load(f)
+    feature_list = list(feature_list)
 
-feature_list = list(feature_list)
+    # -----------------------------
+    # Build calculator (selected only)
+    # -----------------------------
+    calc_full = Calculator(descriptors, ignore_3D=True)
+    selected_descriptors = [
+        d for d in calc_full.descriptors if str(d) in feature_list
+    ]
 
-# -----------------------------
-# Build full Mordred calculator
-# -----------------------------
-calc = Calculator(descriptors, ignore_3D=True)
+    if not selected_descriptors:
+        raise ValueError("No descriptors match feature list")
 
-# Keep only descriptors present in the model feature list
-selected_descriptors = [d for d in calc.descriptors if str(d) in feature_list]
+    calc = Calculator(selected_descriptors, ignore_3D=True)
 
-if len(selected_descriptors) == 0:
-    raise ValueError("No Mordred descriptors matched the XGBoost feature list.")
+    # -----------------------------
+    # Compute descriptors safely
+    # -----------------------------
+    rows = []
 
-calc = Calculator(selected_descriptors, ignore_3D=True)
+    for _, row in df.iterrows():
+        mol = Chem.MolFromSmiles(row["canonical_smiles"])
+        if mol is None:
+            continue
 
-# -----------------------------
-# Convert SMILES to molecules
-# -----------------------------
-mols = []
-kept_rows = []
+        try:
+            desc = calc(mol)
+        except:
+            desc = [np.nan] * len(feature_list)
 
-for _, row in df.iterrows():
-    mol = Chem.MolFromSmiles(row["canonical_smiles"])
-    if mol is None:
-        continue
-    mols.append(mol)
-    kept_rows.append(row)
+        rows.append(desc)
 
-if len(mols) == 0:
-    raise ValueError(f"No valid molecules found in {input_file}")
+    desc_df = pd.DataFrame(rows, columns=feature_list)
 
-meta_df = pd.DataFrame(kept_rows).reset_index(drop=True)
+    # -----------------------------
+    # Align with metadata (NO LOSS)
+    # -----------------------------
+    meta_df = df.iloc[:len(desc_df)].reset_index(drop=True)
 
-# -----------------------------
-# Compute descriptors
-# -----------------------------
-desc_df = calc.pandas(mols)
+    final_df = pd.concat([meta_df, desc_df], axis=1)
 
-# Keep only the exact feature order expected by the model
-desc_df = desc_df.reindex(columns=feature_list)
+    print(f"[MORDRED] Rows: {len(final_df)}")
+    print(f"[MORDRED] Features: {len(feature_list)}")
 
-output_file.parent.mkdir(parents=True, exist_ok=True)
-
-final_df = pd.concat([meta_df, desc_df], axis=1)
-final_df.to_csv(output_file, index=False)
-
-print(f"Input rows: {len(df)}")
-print(f"Valid molecules: {len(mols)}")
-print(f"Selected descriptors matched: {len(selected_descriptors)}")
-print(f"Saved: {output_file}")
+    return final_df

@@ -9,22 +9,6 @@ data/**
 data/raw/**
 !data/raw/.gitkeep
 
-!data/chunks/
-data/chunks/**
-!data/chunks/.gitkeep
-
-!data/processed/
-data/processed/**
-!data/processed/.gitkeep
-
-!data/descriptors/
-data/descriptors/**
-!data/descriptors/.gitkeep
-
-!data/predictions/
-data/predictions/**
-!data/predictions/.gitkeep
-
 # -----------------------------
 # Results
 # -----------------------------
